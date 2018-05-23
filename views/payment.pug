@@ -1,6 +1,8 @@
 head
     script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js')
+    liunk(link rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css", integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm", crossorigin="anonymous")
     link(rel='stylesheet', href='style.css')
+    link(rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&amp;lang=en")
     script.
 
         var animation = document.getElementById('successAnimation');
@@ -19,6 +21,20 @@ head
             }, 1000*5)
             
         }
+
+        function pollMower() {
+            setTimeout(function() {
+                $.ajax({ url: 'http://localhost:8080/mower/', success: function(data) {
+                    if (data == "paid") {
+
+                        showSuccess()
+
+                    } else {
+                        poll(invoice)
+                    }
+                }});
+            }(invoice), 5000);
+        }
         function poll(invoice) {
             console.info(invoice);
             setTimeout(function() {
@@ -36,8 +52,14 @@ head
         }
 body
 
-    span#content
-        img.d-block.w-100.mb-3(src=qr)
+    div
+        div
+            p Use your Lightning Wallet to scan the code or click on the code to start your local wallet
+
+
+        div#content
+            a(href="lightning://" #{ inv.payreq })
+                img.d-block.w-100.mb-3(src=qr)
 
     script.
         poll('!{inv.id}')
