@@ -6,8 +6,12 @@ const express = require('express');
 const path = require('path');
 const axios = require('axios');
 const app = express();
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
 
 const MOWER_API =  'http://192.168.178.199:3000/';
+
+const PRICE = 4;
 
 
 app.set('views', './views')
@@ -21,7 +25,7 @@ var MOWING = false;
 
 function mow() {
     axios.get(MOWER_API+'mow').then(response => {
-        MOVING = true;
+        MOWING = true;
         console.log(response.data);
     })
     .catch(error => {
@@ -48,18 +52,63 @@ function docontinue() {
 }
 
 
+io.on('connection', function(socket){
+    console.log('a user connected');
+});
+
+function startMowing(secondsToRun) {
+
+    console.log('Start mowing');
+
+    mow()
+
+    var interval =  setInterval(function() {
+
+        io.emit('mowerStatus', {status: 5})
+        axios.get(MOWER_API+'mowerdata').then(response => {
+            io.emit('mowerStatus', {status: response.data})
+            
+            if (response.data.state == 15) {
+                clearInterval(interval);
+            }
+        })
+        .catch(error => {
+            console.log(error);
+        })
+    }, 1000)
+
+    setTimeout(function() {
+        console.log('Stop mowing');
+        pause();
+        clearInterval(interval);
+        io.emit('mowerStatus', {status: 15})
+    },secondsToRun*1000);
+
+}
+
+
 var latestInv;
 const stream = charge.stream()
 stream.on('payment', inv => {
     if (inv.payreq === latestInv.payreq) {
 
-        if (MOWING) {
-            docontinue();
-        } else {
-            mow();
-        }
+        io.emit('payment', { payreq: inv.payreq });
+        const paid = inv.msatoshi_received;
 
-        setTimeout(pause,1000*20);
+        console.log(paid);
+
+        const secondsToRun = paid/PRICE;
+
+        startMowing(secondsToRun);
+
+
+        // if (MOWING) {
+        //     docontinue();
+        // } else {
+        //     mow();
+        // }
+
+        // setTimeout(pause,1000*20);
         
     }
 })
@@ -115,4 +164,4 @@ app.get('/invoice/:id', async function(req, res) {
 
 
 // Start server 
-app.listen(process.env.PORT || 8080);
+http.listen(process.env.PORT || 8080);
