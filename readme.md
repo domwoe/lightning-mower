@@ -17,12 +17,18 @@ While this might seem not very useful at first, there are cases where pay per us
 
 The following graphic illustrates our technology stack.
 
-![alt text](https://raw.githubusercontent.com/domwoe/lightning-mower/master/assets/stack.png)
+![technology stack](https://raw.githubusercontent.com/domwoe/lightning-mower/master/assets/stack.png)
 
 We deliberately tried to run as much as possible locally instead of the cloud. Therefore, we augmented the Indego directly with a Raspberry Pi. The Indego provides a serial interface via USB for testing and troubleshooting. We connected the Raspberry Pi and wrote software that provides some of the serial interface via a local RESTful HTTP API.
 
 Furthermore, the Pi runs the c-lightning implementation of a lightning network node. In order to not have to sync the Bitcoin blockchain on the Pi, we only built and installed Bitcoin core locally on the Pi, but connected the bitcoin-cli to the PRC interface of a remote node running in the cloud. c-lightning is not yet able to use a Bitcoin Light node as an interface to the Bitcoin network. In contrast, the lightning network implementation of Lightning Labs lnd would be able use the Neutrino light client (at least on the Bitcoin testnet).
 
 In order to create lighting payment requests, and to keep track of payments, we used the Lightning Charge library by Blockstream. The payment can be made by every lightning compatible wallet. In our demo we used the Android wallet Eclair.
+
+
+### Demo
+
+![Indego](https://raw.githubusercontent.com/domwoe/lightning-mower/master/assets/lightning_mower.jpg)
+
 
 ### Learnings
