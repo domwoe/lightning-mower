@@ -88,6 +88,6 @@ $( document ).ready(function() {
 
     $('#secondsInput').change(function() {
         $('#price').text($('#secondsInput').val() * $('#pricePerSecond').text())
-        socket.emit("newInvoice", {price: $("#price").val()})
+        socket.emit("newInvoice", {price: parseInt($("#price").text())})
     })
 })
