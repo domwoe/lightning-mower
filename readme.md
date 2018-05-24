@@ -10,8 +10,9 @@ There are multiple projects developing Layer 2 systems and networks on top of de
 
 ### Use Case
 
-We decided to upgrade the Bosch Indego autonomous lawn mower to accept lightning payments. The owner is able to set a price per second and then the Indego can be paid-per-use by the second. 
-While this might seem not very useful at first, there are cases where pay per use models are very important. For example in sub saharan africa or south eastern asia a lot of solar home systems are on a pay per use basis, since most of the population is not able to pay for such a system at once, and the financial service industry is not able to serve them. Payments are handled with mobile payments based on mobile minutes, but trading against other currencies is expensive and the system is gated and a single point of failure. Payments based on decentralized digital currencies would provide many advantagages to current centralized systems.
+We decided to upgrade the Bosch Indego autonomous lawn mower to accept lightning payments. The owner is able to set a price per second and then the Indego can be paid-per-use by the second. Of course, this model is only for demonstration, but having the ability to switch a device to a pay per use model could be very powerful. 
+
+For example in sub saharan Africa or south east Asia a lot of solar home systems are on a pay per use basis, since most of the population is not able to pay for such a system at once, and the financial service industry is not able to serve them. Payments are handled with mobile payments based on mobile minutes, but trading against other currencies is expensive and the system is gated and a single point of failure. Payments based on decentralized digital currencies would provide many advantagages to current centralized systems.
 
 ### Technology Stack
 
@@ -32,3 +33,6 @@ In order to create lighting payment requests, and to keep track of payments, we 
 
 
 ### Learnings
+
+
+### Outlook
