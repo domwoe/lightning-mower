@@ -8,16 +8,21 @@ Bitcoin is the oldest decentralized digital currency and has the greatest diffus
 
 There are multiple projects developing Layer 2 systems and networks on top of decentralized digital currencies to enable instant micropayments without giving up much of the security features. The most advanced project is the Lightning Network which sits on top of Bitcoin or Bitcoin-like network. During this hackathon we wanted to try the clients and libraries that are being built for the lightning network to get a feeling for the current state and what can be done with it. 
 
-#### Use Case
+### Use Case
 
 We decided to upgrade the Bosch Indego autonomous lawn mower to accept lightning payments. The owner is able to set a price per second and then the Indego can be paid-per-use by the second. 
 While this might seem not very useful at first, there are cases where pay per use models are very important. For example in sub saharan africa or south eastern asia a lot of solar home systems are on a pay per use basis, since most of the population is not able to pay for such a system at once, and the financial service industry is not able to serve them. Payments are handled with mobile payments based on mobile minutes, but trading against other currencies is expensive and the system is gated and a single point of failure. Payments based on decentralized digital currencies would provide many advantagages to current centralized systems.
 
 ### Technology Stack
 
-The following graphic illustrates our technology stack
+The following graphic illustrates our technology stack.
 
 ![alt text](https://raw.githubusercontent.com/domwoe/lightning-mower/master/assets/stack.png)
 
+We deliberately tried to run as much as possible locally instead of the cloud. Therefore, we augmented the Indego directly with a Raspberry Pi. The Indego provides a serial interface via USB for testing and troubleshooting. We connected the Raspberry Pi and wrote software that provides some of the serial interface via a local RESTful HTTP API.
+
+Furthermore, the Pi runs the c-lightning implementation of a lightning network node. In order to not have to sync the Bitcoin blockchain on the Pi, we only built and installed Bitcoin core locally on the Pi, but connected the bitcoin-cli to the PRC interface of a remote node running in the cloud. c-lightning is not yet able to use a Bitcoin Light node as an interface to the Bitcoin network. In contrast, the lightning network implementation of Lightning Labs lnd would be able use the Neutrino light client (at least on the Bitcoin testnet).
+
+In order to create lighting payment requests, and to keep track of payments, we used the Lightning Charge library by Blockstream. The payment can be made by every lightning compatible wallet. In our demo we used the Android wallet Eclair.
 
 ### Learnings
