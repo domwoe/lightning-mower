@@ -1,10 +1,22 @@
-head
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js')
-    script(src='socket.io.js')
-    liunk(link rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css", integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm", crossorigin="anonymous")
-    link(rel='stylesheet', href='style.css')
-    link(rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&amp;lang=en")
-
-body
-
-    Money earned #{ amount }
+extends layout.pug
+block content
+    .form
+        div.row
+            div.col-md-8 Money earned: 
+            div.col-md-4 #{ wealth } Satoshi
+        div.form-group.row
+            label.col-md-8.col-form-label(for="priceInput") Price / second in Satoshi
+            select#priceInput.form-control.col-md-4
+                option 1
+                option 2
+                option 3
+                option 4
+                option 5
+                option 6
+                option 7
+                option 8
+                option 9
+                option 10
+        .row
+            a.btn.btn-outline-light( onclick="update()") Update
+            

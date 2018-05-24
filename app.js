@@ -11,7 +11,8 @@ var io = require('socket.io')(http);
 
 const MOWER_API =  'http://192.168.178.199:3000/';
 
-const PRICE = 4;
+var PRICE = 4;
+var invoicePrice = PRICE;
 
 
 app.set('views', './views')
@@ -54,6 +55,20 @@ function docontinue() {
 
 io.on('connection', function(socket){
     console.log('a user connected');
+
+    socket.on('newPrice', (msg) => {
+        console.log('Set price to '+ msg.price);
+        if (msg.price) {
+            PRICE = msg.price;
+        }
+    })
+
+    socket.on('newInvoice', (msg) => {
+        console.log('Set Invoice price to '+ msg.price);
+        if (msg.price) {
+            invoicePrice = msg.price;
+        }
+    })
 });
 
 function startMowing(secondsToRun) {
@@ -116,12 +131,12 @@ stream.on('payment', inv => {
 
 
 app.get('/', function (req, res) {
-    res.render('index', { title: 'Hey', message: 'Hello there!'});
+    res.render('index', { pricePerSecond: PRICE });
 });
 
 app.get('/payment', async (req, res) => {
 
-    const inv = await charge.invoice({ msatoshi: 50 })
+    const inv = await charge.invoice({ msatoshi: invoicePrice })
     latestInv = inv;
     const code = await QRCode.toDataURL(`lightning:${ inv.payreq }`.toUpperCase()
     // { color: {
@@ -132,6 +147,22 @@ app.get('/payment', async (req, res) => {
 
     // var code = qr.image(`lightning:${ inv.payreq }`.toUpperCase(), { type: 'svg' });
     res.render('payment', {qr: code, inv: inv});
+
+})
+
+app.get('/admin', async (req, res) => {
+
+    const invoices = await charge.fetchAll()
+
+    let wealth = 0;
+
+    for (let invoice of invoices) {
+        if (invoice.msatoshi_received != null ) {
+            wealth = wealth + parseInt(invoice.msatoshi_received);
+        }
+    }
+
+    res.render('admin', { wealth: wealth });
 
 })
 

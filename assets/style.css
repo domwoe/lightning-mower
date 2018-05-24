@@ -2,12 +2,34 @@ html, body {
     height: 100%;
     }
     body {
-    align-items: center;
     background-color: #35297b;
     color: #fff;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    display: flex;
-    justify-content: center;
+    }
+
+    .content {
+        height: 90%;
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        text-align: center;
+    }
+
+    #pricePerSecond {
+        visibility: hidden;
+    }
+
+    #header {
+        height: 10%;
+        float: right;
+    }
+
+    #content {
+        max-width: 25%;
+    }
+
+    .margin {
+        margin: 8px;
     }
 
     .logo {
