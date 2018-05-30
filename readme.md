@@ -34,5 +34,13 @@ In order to create lighting payment requests, and to keep track of payments, we 
 
 ### Learnings
 
+Transaction costs are crucial when offering micropayment solutions. Implementing the Lightning network on a smart device such as the lawn mower in this case we found out that transaction costs amount to … - a fraction of what today’s payment service provider charge. However, this was possible after opening a Bosch payment channel to the device directly. 
+Since the official release, more 2000 nodes and 6000 channels have been opened up on the lightning main net what proves the acceptance of such a technology in the market. Despite the early state of the technology, one can observe a steady growth in nodes and channels. Therefore, the low transaction costs and network growth provide evidence that Lightning delivers a suitable infrastructure for micropayments. 
+
 
 ### Outlook
+
+Micropayments hold many promises for users as well as sellers. They enable new business models such as “machine as a service”. Users and clients not need to pony up a larger sum of money to start making purchases. They only purchase what they want, and they pay when they want to. It allows transferring fixed assets (CAPEX) to OPEX. Users now can manage risks and fees better than before. 
+On the other side providers such as Bosch can build up new revenue models as usage based paying and billing for example. This allows to address more customers by better serving their specific needs. In addition, payments across multiple countries for products and services can be simplified. 
+Overall micropayments are an important step towards the economy of things where machines act as autonomous agents and directly communicate, negotiate and pay each other. 
+Still there is room for improvement. As usability of such a solution highly depends on the individual use case, new UX concepts need to be worked out. Therefore, we plan to realize more projects to enable more machines and smart devices to accept micropayments and pave the way for better service offerings. Let us know which use case you have in mind.  
